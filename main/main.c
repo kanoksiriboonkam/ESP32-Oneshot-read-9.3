@@ -14,7 +14,7 @@
 
 void app_main(void)
 {
-int adc_read5;
+int adc_read4;
 int mv_output;
 
 adc_oneshot_unit_handle_t handle = NULL;
@@ -32,7 +32,7 @@ adc_oneshot_chan_cfg_t config = {
     .bitwidth = ADC_BITWIDTH_DEFAULT,
     .atten = ADC_ATTEN_DB_12,
 };
-ESP_ERROR_CHECK(adc_oneshot_config_channel(handle, ADC_CHANNEL_5, &config));
+ESP_ERROR_CHECK(adc_oneshot_config_channel(handle, ADC_CHANNEL_4, &config));
 
 
 adc_cali_handle_t cali_handle = NULL;
@@ -46,9 +46,9 @@ ESP_ERROR_CHECK(adc_cali_create_scheme_line_fitting(&cali_config, &cali_handle))
 
 while (1)
 {
-    ESP_ERROR_CHECK(adc_oneshot_read(handle, ADC_CHANNEL_5, &adc_read5));
-    printf("Adc channel-0 raw read result %d \n", adc_read5);
-    adc_cali_raw_to_voltage(cali_handle, adc_read5, &mv_output);
+    ESP_ERROR_CHECK(adc_oneshot_read(handle, ADC_CHANNEL_4, &adc_read4));
+    printf("Adc channel-0 raw read result %d \n", adc_read4);
+    adc_cali_raw_to_voltage(cali_handle, adc_read4, &mv_output);
 
     vTaskDelay(500/portTICK_PERIOD_MS);
 }
